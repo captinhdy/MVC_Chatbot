@@ -1,0 +1,39 @@
+body{padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;padding-right:15px}.carousel-caption p{font-size:20px;line-height:1.4}.carousel-inner .item img[src$=".svg"]{width:100%}#qrCode{margin:15px}@media screen and (max-width:767px){.carousel-caption{display:none}}
+
+#bot{
+    height: 500px;
+    width: 100%;
+    border: solid black 1px;
+}
+
+#bot-text{
+    height: 400px;
+    overflow-y: auto;
+    border-bottom: solid black 1px;
+    margin: 5px;
+}
+
+#bot-question{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px
+}
+
+.answer-box{
+    background-color: red;
+    width:70%;
+    position: relative;
+    float: left;
+    padding: 10px;
+    margin:10px;
+}
+
+.question-box{
+    background-color: cornflowerblue;
+    width:70%;
+    position: relative;
+    float: right;
+    padding: 10px;
+    margin: 10px;
+}

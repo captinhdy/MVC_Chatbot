@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        Welcome to the FAQ bot test app. This was built using the FAQ section of your public page found here.
+        <br/>
+        <a href="https://www.crest-management.com/pages/faq.aspx">Crest FAQ</a>
+        <br/>
+        Try asking the bot about payments
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div id="bot">
+            <div id="bot-text">
+
+            </div>
+            <div id="bot-question">
+                <div class="row">
+                    <div class="col-md-9">
+                        <label for="QuestionTxt">Ask the bot a question</label>
+                        <input type="text" style="width:90%" id="QuestionTxt" class="form-control"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="submitbtn">&nbsp;</label>
+                        <br/>
+                        <input type="button" value="submit" onclick="SubmitQuestion()" class="btn btn-primary" id="submitbtn" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Questions to try</label>
+            <ul>
+                <li>Can i make a payment online?</li>
+                <li>Can i pay by credit card?</li>
+                <li>Can i pay by check?</li>
+                <li>how can i obtain a copy of my statement?</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function SubmitQuestion(){
+        var question = document.getElementById("QuestionTxt").value;
+        var chatArea = document.getElementById("bot-text");
+        questionDiv = document.createElement("div");
+        questionDiv.classList.add('question-box');
+        questionDiv.innerHTML = question;
+        chatArea.append(questionDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+
+        //var request =new XMLHttpRequest();
+
+        var data = {
+            "Question" : question
+        }
+         $.ajax({
+                type: "GET",
+                url: "/Bot/SubmitQuestion?Question=" + question,
+                contentType: "application/json",
+                dataType: "json",
+                success:  function(r){
+                console.log(r)
+                var response = r;
+                var div = document.createElement("div");
+                var br = document.createElement("br")
+                div.classList.add('answer-box');
+                div.innerHTML = response.answer;
+                div.innerHTML += "<br/>"
+                div.innerHTML += "confidence level: " + response.confidence;
+                chatArea.append(div);
+                chatArea.scrollTop = chatArea.scrollHeight;
+            },
+            error: function(ex){
+                alert(ex.responseText)
+            }
+        });
+       // request.onreadystatechange = function() {
+         //   if (this.readyState == 4 && this.status == 200) {
+                // Typical action to be performed when the document is ready:
+                
+                
+      //      }
+//
+  //          if(this.status == 500){
+    //            alert(request.responseText)
+      //      }
+        //};
+        
+        //request.open("POST", "/Bot/SubmitQuestion");
+        //request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+        //request.send(JSON.stringify(data));
+    }
+</script>
+        
